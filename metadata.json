@@ -4,5 +4,6 @@
   "description": "Pick the active openvpn3 session",
   "shell-version": ["50"],
   "gettext-domain": "openvpn3-switcher",
+  "url": "https://github.com/DjLeChuck/gnome-extensions-openvpn3-switcher",
   "version": 1
 }

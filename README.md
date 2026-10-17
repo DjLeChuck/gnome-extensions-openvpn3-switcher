@@ -46,6 +46,34 @@ dconf.settings."org/gnome/shell".enabled-extensions = [
 ];
 ```
 
+### NixOS module: disconnect before suspend
+
+A tunnel that stays up across suspend/resume tends to come back half-dead. The flake also ships a NixOS
+module that disconnects every OpenVPN 3 session of the logged-in desktop user right before the machine
+suspends:
+
+```nix
+# NixOS configuration
+imports = [ inputs.openvpn3-switcher.nixosModules.default ];
+
+programs.openvpn3.enable = true;
+services.openvpn3-suspend-disconnect.enable = true;
+```
+
+OpenVPN 3 sessions can only be managed by the UID that started them, so the root-owned systemd unit runs
+the `openvpn3` calls as the logged-in desktop user (resolved at runtime, no username to configure). It keeps
+re-issuing the disconnect until the session list is empty, since a session that is mid-(re)connect can
+ignore a disconnect request for a long time.
+
+| Option | Role | Default |
+|--------|------|---------|
+| `enable` | Install the unit, wired to `sleep.target` | `false` |
+| `package` | The `openvpn3` package providing the CLI | `config.programs.openvpn3.package` |
+| `attempts` | How many disconnect rounds before giving up | `20` |
+| `retryInterval` | Seconds between two rounds | `3` |
+
+The unit's `TimeoutSec` is derived from these two (`attempts * retryInterval + 60`). Logs: `journalctl -u openvpn3-suspend-disconnect`.
+
 ### Manual
 
 ```sh

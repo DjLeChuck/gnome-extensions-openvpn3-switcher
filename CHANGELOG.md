@@ -5,6 +5,13 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- NixOS module `nixosModules.default` (`services.openvpn3-suspend-disconnect`)
+  disconnecting the logged-in user's OpenVPN 3 sessions before suspend.
+
 ## [1.0.0] - 2026-10-15
 
 First public release.
@@ -22,5 +29,7 @@ First public release.
 - State refresh after the machine resumes from suspend.
 - French translation.
 - Nix flake (package and overlay), `Makefile` for manual installs, and CI.
+
+[Unreleased]: https://github.com/DjLeChuck/gnome-extensions-openvpn3-switcher/compare/v1.0.0...HEAD
 
 [1.0.0]: https://github.com/DjLeChuck/gnome-extensions-openvpn3-switcher/releases/tag/v1.0.0

@@ -10,7 +10,7 @@ let
 in
 stdenvNoCC.mkDerivation {
   pname = "gnome-shell-extension-openvpn3-switcher";
-  version = "1.0.0";
+  version = "1.1.0";
 
   src = lib.fileset.toSource {
     root = ./.;
